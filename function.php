@@ -1,47 +1,32 @@
 <?php
 
-class Parcel{
-  private $weight;
-  private $height;
-  private $length;
-  private $width;
+class Triangle{
 
-function __construct($weight, $height, $length, $width){
-  $this->weight = $weight;
-  $this->height = $height;
-  $this->length = $length;
-  $this->width = $width;
-}
-  function getWeight(){
-    return $this->weight;
+  public $a;
+  public $b;
+  public $c;
+
+  function __construct ($a, $b, $c) {
+    $this->a = $a;
+    $this->b = $b;
+    $this->c = $c;
   }
-  function getHeight(){
-    return $this->height;
-  }
-  function getLength(){
-    return $this->length;
-  }
-  function getWidth(){
-    return $this->width;
-  }
-  function volume(){
-    return $this->height * $this->length * $this->width;
-  }
-  function cost(){
-    if (($this->volume()<=450) && ($this->weight<5)){
-      return "$6";
-    } elseif (($this->volume()<=450) && ($this->weight>=5)) {
-      return "$8";
-    } elseif (($this->volume()>450) && ($this->weight<5)) {
-      return "$9";
+
+  function triangle () {
+    if(($this->a>=$this->b+$this->c) || ($this->b>=$this->a+$this->c) || ($this->c >= $this->b +$this->a)){
+      echo "That is not a triangle!!!! Try again Dummy!!!";
+    } elseif (($this->a==$this->b) && ($this->c==$this->b) && ($this->a == $this->c)) {
+      echo "That is an equilateral triangle!";
+    } elseif (($this->a==$this->b) || ($this->a==$this->c) || ($this->b==$this->c)) {
+      echo "That is an isosceles triangle!";
     } else {
-      return "$120";
+      echo "That is a scalene triangle!!";
     }
   }
 
 }
 
-$test = new Parcel ($_GET['weight'],$_GET['height'],$_GET['length'],$_GET['width']);
+$test = new Triangle ($_GET['sideOne'],$_GET['sideTwo'],$_GET['sideThree']);
 
 ?>
 
@@ -52,11 +37,10 @@ $test = new Parcel ($_GET['weight'],$_GET['height'],$_GET['length'],$_GET['width
     <title>Price</title>
   </head>
   <body>
-    <p>Your parcel's weight is: <?php echo $test->getWeight() . 'lbs'; ?></p>
-    <p>Your parcel's height is: <?php echo $test->getHeight() . 'in'; ?></p>
-    <p>Your parcel's width is: <?php echo $test->getWidth() . 'in'; ?></p>
-    <p>Your parcel's lenght is: <?php echo $test->getLength() . 'in'; ?></p>
-    <p>Your parcel's volume is: <?php echo $test->volume() . 'in'; ?></p>
-    <p>Your parcel's price is: <?php echo $test->cost(); ?></p>
+    <p>
+      <?php
+        $test->triangle();
+       ?>
+    </p>
   </body>
 </html>
